@@ -11,8 +11,6 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -23,13 +21,14 @@ public class BaseClientConsumerImpl implements BaseClientConsumer {
     @Override
     @KafkaListener(
             topics = "${spring.kafka.topic-client-consumer}",
-            groupId = "${spring.kafka.consumer.group-id}"
+            groupId = "${spring.kafka.consumer.group-id}",
+            containerFactory = "kafkaListenerContainerFactory"
     )
     public void consumerTopic(
-            @Payload List<Client> message,
+            @Payload Client message,
             @Header( KafkaHeaders.RECEIVED_PARTITION_ID ) int partition ) {
 
-        log.info( "mensagem consumida com sucesso: {}", message );
+        log.info( "mensagem consumida com sucesso " );
 
         clientUseCase.execute( message );
 

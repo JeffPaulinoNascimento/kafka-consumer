@@ -8,5 +8,5 @@ import org.springframework.messaging.handler.annotation.Payload;
 import java.util.List;
 
 public interface BaseClientConsumer {
-    void consumerTopic(@Payload List<Client> message, @Header( KafkaHeaders.RECEIVED_PARTITION_ID ) int partition);
+    void consumerTopic(@Payload Client message, @Header( KafkaHeaders.RECEIVED_PARTITION_ID ) int partition);
 }
